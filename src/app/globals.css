@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #1b1b1e; /* Darker charcoal */
+  --color-secondary: #757575; /* Gray */
+  --color-accent: #6a6aff; /* Subtle lavender/purple */
+  --color-muted: #fbfbfb;
+  --color-border: #eeeeee;
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #1b1b1e;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Portfolio Archive Typography */
+h1, h2, h3, h4 {
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--color-primary);
+}
+
+p {
+  line-height: 1.8;
+  color: var(--color-primary);
+}
+
+.analysis-content {
+  line-height: 1.85;
+  font-size: 1.05rem;
+  color: #333333;
+}
+
+.archive-list-item {
+  @apply border-b border-border py-8 transition-all hover:bg-muted/50;
+}
