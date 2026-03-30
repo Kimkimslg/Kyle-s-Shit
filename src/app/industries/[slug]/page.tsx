@@ -7,11 +7,14 @@ import PostCard from '@/components/ui/PostCard';
 import { ChevronRight, Building2, BookOpen, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
+import { INDUSTRY_DEEP_DIVES } from '@/lib/industry-data';
+import Image from 'next/image';
 
 export default function IndustryDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
   const industry = INDUSTRIES.find(i => i.id === slug);
+  const deepDive = INDUSTRY_DEEP_DIVES[slug];
   const [analyses, setAnalyses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -92,6 +95,71 @@ export default function IndustryDetailPage() {
           </div>
         </div>
       </header>
+
+      {/* Deep Dive Section */}
+      {deepDive && (
+        <section className="mb-24 space-y-16 animate-in fade-in duration-700">
+          <div className="relative aspect-video rounded-[2.5rem] overflow-hidden shadow-2xl bg-slate-100 border border-border">
+             <Image 
+              src={deepDive.imagePath} 
+              alt={`${industry.title} Overview`} 
+              fill 
+              className="object-cover"
+              priority
+             />
+             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div className="space-y-8">
+              <div className="space-y-4">
+                <h3 className="text-xs font-black uppercase tracking-widest text-accent flex items-center gap-2">
+                  <span className="w-2 h-2 bg-accent rounded-full animate-pulse" /> Industry Strategic Overview
+                </h3>
+                <p className="text-base text-slate-800 leading-relaxed font-medium">
+                  {deepDive.overview}
+                </p>
+              </div>
+
+              <div className="space-y-4 bg-slate-50 p-8 rounded-3xl border border-border">
+                <h3 className="text-[10px] font-black uppercase tracking-widest text-primary">Key Analysis Points</h3>
+                <ul className="space-y-3">
+                  {deepDive.keyAnalysisPoints.map((point, idx) => (
+                    <li key={idx} className="flex gap-3 text-sm text-slate-600 font-medium">
+                      <span className="text-accent">•</span> {point}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="space-y-8">
+              <div className="space-y-6">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Industry Trends</h3>
+                <div className="flex flex-wrap gap-3">
+                  {deepDive.trends.map((trend) => (
+                    <span key={trend} className="px-4 py-2 bg-primary text-white text-[11px] font-bold rounded-lg shadow-lg shadow-primary/10">
+                      {trend}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Strategic Risks</h3>
+                <div className="flex flex-wrap gap-3">
+                  {deepDive.risks.map((risk) => (
+                    <span key={risk} className="px-4 py-2 bg-white border-2 border-red-100 text-red-500 text-[11px] font-bold rounded-lg uppercase tracking-tight">
+                      {risk}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
 
       {/* Analysis List */}
       <section className="space-y-0">

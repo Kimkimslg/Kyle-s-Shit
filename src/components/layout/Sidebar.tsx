@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { label: 'HOME', href: '/', icon: <Home className="w-4 h-4" /> },
-  { label: 'CATEGORIES', href: '/archive', icon: <FolderTree className="w-4 h-4" /> },
+  { label: 'CATEGORIES', href: '/categories', icon: <FolderTree className="w-4 h-4" /> },
   { label: 'ARCHIVES', href: '/archive', icon: <Archive className="w-4 h-4" /> },
   { label: 'ABOUT', href: '/about', icon: <User className="w-4 h-4" /> },
 ];
